@@ -10,7 +10,7 @@
 | Dataset Used | Fashion MNIST |
 | Problem Type | Multi-class Image Classification |
 | Frameworks Used | NumPy, Matplotlib, TensorFlow/Keras (only for dataset loading) |
-| Main Goal | To understand convolution, pooling, forward propagation, backward propagation, softmax classification, and optimization in CNNs |
+| Main Goal | To understand convolution operations, pooling, forward propagation, backward propagation, softmax classification, and optimization techniques in CNNs |
 
 ---
 
@@ -18,9 +18,10 @@
 
 | Description |
 | :--- |
-| Convolutional Neural Networks (CNNs) are one of the most important deep learning architectures used for image classification and computer vision tasks. CNNs automatically learn image features such as edges, textures, shapes, and patterns directly from raw pixel data using convolution operations. |
-| In this project, the CNN architecture was implemented completely from scratch using NumPy in order to understand the internal working of CNNs at a deeper level. |
-| Every major component including convolution layer, pooling layer, flattening, fully connected layer, softmax activation, forward propagation, backward propagation, and gradient descent optimization was manually implemented and integrated into a complete training pipeline. |
+| Convolutional Neural Networks (CNNs) are one of the most powerful and widely used neural network architectures in the field of computer vision and image classification. CNNs automatically learn important image features such as edges, textures, shapes, and object patterns directly from raw pixel data. |
+| Unlike traditional machine learning algorithms, CNNs eliminate the need for manual feature extraction by learning hierarchical feature representations automatically through convolution operations. |
+| In this project, a CNN was implemented completely from scratch using NumPy in order to gain a deeper understanding of the internal working of convolutional neural networks. |
+| Every major component including convolution layer, pooling layer, flattening, fully connected layer, forward propagation, backward propagation, softmax activation, cross entropy loss, and gradient descent optimization was manually implemented and integrated into a complete training pipeline. |
 
 ---
 
@@ -30,6 +31,7 @@
 | :--- |
 | The objective of this project is to build a Convolutional Neural Network (CNN) from basic principles and train it on the Fashion MNIST dataset for image classification. |
 | The project aims to demystify the internal functioning of CNNs by manually implementing every operation involved in training and prediction. |
+| The CNN model should successfully learn meaningful image features and classify unseen fashion images into the correct clothing categories. |
 
 ---
 
@@ -46,6 +48,7 @@
 | Image Size | 28 × 28 |
 | Image Type | Grayscale |
 | Number of Classes | 10 |
+| Classification Type | Multi-class Image Classification |
 
 ---
 
@@ -92,6 +95,7 @@
 | Stride | 1 |
 | Padding | None |
 | Output | Feature maps containing important image patterns |
+| Functionality | Filters slide across the image and compute dot products between image regions and filter weights |
 
 ### Convolution Formula
 
@@ -107,7 +111,8 @@ Y(i,j)=\sum_m\sum_n X(i+m,j+n)K(m,n)
 | :--- | :--- |
 | Purpose | Introduce non-linearity |
 | Formula | ReLU(x)=max(0,x) |
-| Benefit | Helps the CNN learn complex patterns |
+| Benefit | Helps the CNN learn complex image patterns |
+| Effect | Negative values become zero while positive values remain unchanged |
 
 ---
 
@@ -119,6 +124,7 @@ Y(i,j)=\sum_m\sum_n X(i+m,j+n)K(m,n)
 | Stride | 2 |
 | Purpose | Reduce dimensions and computation |
 | Benefit | Retains important features while reducing memory usage |
+| Output Shape | 13×13×16 |
 
 ---
 
@@ -126,9 +132,10 @@ Y(i,j)=\sum_m\sum_n X(i+m,j+n)K(m,n)
 
 | Feature | Explanation |
 | :--- | :--- |
-| Purpose | Convert feature maps into 1D vector |
+| Purpose | Convert feature maps into a 1D vector |
 | Input Shape | 13×13×16 |
 | Output Size | 2704 |
+| Benefit | Allows data to be passed into fully connected layers |
 
 ---
 
@@ -139,6 +146,7 @@ Y(i,j)=\sum_m\sum_n X(i+m,j+n)K(m,n)
 | Input Nodes | 2704 |
 | Output Nodes | 10 |
 | Purpose | Perform final classification |
+| Weight Initialization | Random initialization scaled using input size |
 
 ---
 
@@ -148,6 +156,7 @@ Y(i,j)=\sum_m\sum_n X(i+m,j+n)K(m,n)
 | :--- | :--- |
 | Purpose | Convert outputs into probabilities |
 | Output | Probability distribution across 10 classes |
+| Benefit | Highest probability indicates predicted class |
 
 ### Softmax Formula
 
@@ -179,6 +188,7 @@ L=-\log(p_y)
 | :--- | :--- |
 | Purpose | Update weights to reduce loss |
 | Optimization Method | Gradient Descent |
+| Learning Type | Supervised Learning |
 | Process | Gradients are computed and propagated backward through the network |
 
 ### Weight Update Formula
@@ -192,22 +202,23 @@ W = W - \eta \frac{\partial L}{\partial W}
 # Hyperparameters
 
 | Hyperparameter | Value |
-
+| :--- | :--- |
 | Epochs | 15 |
 | Learning Rate | 0.001 |
 | Number of Filters | 16 |
 | Filter Size | 3×3 |
+| Pool Size | 2×2 |
 | Training Samples | 5000 |
 | Testing Samples | 2000 |
-| Pool Size | 2×2 |
 | Activation Functions | ReLU + Softmax |
+| Optimization Method | Gradient Descent |
 
 ---
 
 # Training and Testing Performance
 
 | Epoch | Average Training Accuracy | Average Training Loss |
-
+| :--- | :--- | :--- |
 | 1 | 68.0% | 0.896 |
 | 2 | 73.2% | 0.742 |
 | 3 | 76.4% | 0.681 |
@@ -238,14 +249,15 @@ W = W - \eta \frac{\partial L}{\partial W}
 
 # Observations
 
-Observation :-
-
-| 1 | Training accuracy steadily increased across epochs 
-| 2 | Training loss consistently decreased indicating convergence 
-| 3 | Test accuracy reached approximately 82% showing good generalization 
-| 4 | CNN successfully learned important image features 
-| 5 | Increasing filters and training samples improved performance 
-| 6 | Gradient descent effectively minimized prediction error 
+| Observation Number | Observation |
+| :--- | :--- |
+| 1 | Training accuracy steadily increased across epochs indicating successful learning |
+| 2 | Training loss consistently decreased showing convergence of the model |
+| 3 | Test accuracy reached approximately 82%, indicating good generalization |
+| 4 | Small gap between train and test accuracy indicates minimal overfitting |
+| 5 | CNN successfully learned meaningful image features |
+| 6 | Increasing filters and training samples improved performance significantly |
+| 7 | Gradient descent optimization effectively minimized prediction error |
 
 ---
 
@@ -259,30 +271,39 @@ Observation :-
 
 ![Loss Graph](graphs/loss.png)
 
+---
 
+# File Structure
 
-File / Folder :-  
-graphs/accuracy.png -  Accuracy graph generated during training 
-graphs/loss.png - Loss graph generated during training 
-src/convolution.py - Convolution layer implementation 
-src/pooling.py - Max Pooling layer implementation 
-src/fully_connected.py - Fully connected layer and softmax 
-src/loss.py - Cross entropy loss implementation 
-src/train.py - Complete training pipeline 
-README.md - Project documentation 
-requirements.txt - Required Python dependencies 
+| File / Folder | Description |
+| :--- | :--- |
+| graphs/accuracy.png | Accuracy graph generated during training |
+| graphs/loss.png | Loss graph generated during training |
+| src/convolution.py | Convolution layer implementation |
+| src/pooling.py | Max Pooling layer implementation |
+| src/fully_connected.py | Fully connected layer and softmax |
+| src/loss.py | Cross entropy loss implementation |
+| src/train.py | Complete training pipeline |
+| README.md | Project documentation |
+| requirements.txt | Required Python dependencies |
 
+---
 
+# How to Run the Project
 
-| Step :- | Command :- |
+| Step | Command |
+| :--- | :--- |
 | Create Virtual Environment | python -m venv venv |
 | Activate Environment | venv\Scripts\activate |
 | Install Dependencies | pip install -r requirements.txt |
 | Run Training | python src/train.py |
 
+---
 
+# Concepts Demonstrated
 
-| Concept :-  | Implementation:- |
+| Concept | Implementation |
+| :--- | :--- |
 | Convolution Operation | convolution.py |
 | Feature Extraction | convolution.py |
 | Forward Propagation | train.py |
@@ -293,26 +314,35 @@ requirements.txt - Required Python dependencies
 | Gradient Descent | fully_connected.py |
 | CNN Training Pipeline | train.py |
 
+---
 
+# Limitations
 
-Limitationc:-
-Pure NumPy implementation is slower than TensorFlow/PyTorch 
-Only one convolution layer is used 
-No dropout regularization 
-No data augmentation 
-Batch processing is not implemented 
+| Limitation Number | Limitation |
+| :--- | :--- |
+| 1 | Pure NumPy implementation is slower than TensorFlow/PyTorch |
+| 2 | Only one convolution layer is used |
+| 3 | No dropout regularization |
+| 4 | No batch normalization |
+| 5 | No data augmentation techniques applied |
 
+---
 
+# Future Improvements
 
-Improvement :-
-Add multiple convolution layers 
-Implement dropout regularization 
-Add batch normalization 
-Use data augmentation 
-Implement mini-batch gradient descent 
-Train on the complete dataset 
+| Improvement Number | Improvement |
+| :--- | :--- |
+| 1 | Add multiple convolution layers |
+| 2 | Implement dropout regularization |
+| 3 | Add batch normalization |
+| 4 | Use data augmentation |
+| 5 | Implement mini-batch gradient descent |
+| 6 | Train on the complete Fashion MNIST dataset |
 
+---
 
+# Conclusion
 
-Conclusion :-
-This project successfully demonstrates the implementation of a Convolutional Neural Network (CNN) completely from scratch using NumPy. The CNN was able to extract image features, reduce dimensionality using pooling, classify Fashion MNIST images effectively, and achieve strong training and testing accuracy. The project provided a deep understanding of convolution operations, feature extraction, forward propagation, backpropagation, and optimization techniques. 
+| Conclusion |
+| :--- |
+| This project successfully demonstrates the implementation of a Convolutional Neural Network (CNN) completely from scratch using NumPy. The CNN was able to extract image features, reduce dimensionality using pooling, classify Fashion MNIST images effectively, and achieve strong training and testing accuracy. The project provided a deep understanding of convolution operations, feature extraction, forward propagation, backpropagation, and optimization techniques. |
